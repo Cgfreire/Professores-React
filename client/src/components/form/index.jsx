@@ -4,26 +4,26 @@ import { v4 as uuidv4 } from "uuid";
 
 export const FormComponent = () => {
   const [nome, setNome] = useState("");
-  const [cargaHoraria, setCargaHoraria] = useState("");
-  const [peso, setPeso] = useState("");
+  const [matricula, setMatricula] = useState("");
+  const [materia, setMateria] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const listaDeMaterias = JSON.parse(localStorage.getItem("materias")) || [];
+    const listadeProfessores = JSON.parse(localStorage.getItem("professores")) || [];
 
-    const materias = {
+    const professores = {
       id: uuidv4().slice(0,5),
       nome: nome,
-      cargaHoraria: cargaHoraria,
-      peso: peso,
+      matricula: matricula,
+      materia: materia,
     };
 
-    listaDeMaterias.push(materias);
-    localStorage.setItem("materias", JSON.stringify(listaDeMaterias));
+    listadeProfessores.push(professores);
+    localStorage.setItem("professores", JSON.stringify(listadeProfessores));
 
     setNome("");
-    setCargaHoraria("");
-    setPeso("");
+    setMatricula("");
+    setMateria("");
 
     window.location.reload()
   };
@@ -38,7 +38,7 @@ export const FormComponent = () => {
           <input
             type="text"
             id="nome"
-            placeholder="Nome da matéria"
+            placeholder="Nome do Professor"
             minLength={1}
             maxLength={50}
             required
@@ -47,33 +47,33 @@ export const FormComponent = () => {
           />
         </InputArea>
         <InputArea>
-          <label nome="cargaHoraria" htmlFor="cargaHoraria">
-            CG
+          <label nome="Matricula" htmlFor="matricula">
+            Matrícula
           </label>
           <input
             type="text"
-            id="cargaHoraria"
-            placeholder="Carga horária da matéria"
+            id="matricula"
+            placeholder="Matricula do Professor"
             minLength={1}
             maxLength={5}
             required
-            value={cargaHoraria}
-            onChange={(event) => setCargaHoraria(event.target.value)}
+            value={matricula}
+            onChange={(event) => setMatricula(event.target.value)}
           />
         </InputArea>
         <InputArea>
-          <label nome="peso" htmlFor="peso">
-            Peso
+          <label nome="materia" htmlFor="materia">
+            Matéria
           </label>
           <input
             type="text"
-            id="peso"
-            placeholder="Peso da matéria"
+            id="materia"
+            placeholder="Matéria do Professor"
             minLength={1}
-            maxLength={2}
+            maxLength={50}
             required
-            value={peso}
-            onChange={(event) => setPeso(event.target.value)}
+            value={materia}
+            onChange={(event) => setMateria(event.target.value)}
           />
         </InputArea>
         <Button type="submit">Cadastrar</Button>

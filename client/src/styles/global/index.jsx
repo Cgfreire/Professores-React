@@ -24,7 +24,7 @@ export const GlobalStyles = createGlobalStyle`
     body{
         width: 100%;
         height: 100vh;
-        background: var(--bg-default);
+        background: #dbd8e3;
         font-family: 'Poppins', 'Raleway', sans-serif;
     }
 `;

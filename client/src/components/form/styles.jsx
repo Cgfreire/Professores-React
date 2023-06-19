@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.div`
     width: 90%;
-    background: var(--containers-bg);
+    background:  #a393eb;
     padding: 5rem;
     border-radius: 1rem;
     box-shadow: 0rem 0rem 2rem .1rem #dddddd;
@@ -15,6 +15,7 @@ export const Form = styled.form`
  height: 100%;
  display: flex;
  flex-wrap: wrap;
+ justify-content: center;
 `
 export const InputArea = styled.div`
 display: flex;
@@ -22,8 +23,10 @@ flex-direction: column;
 margin: 1rem;
 
   label {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
     font-size: clamp(1.2rem, 1.6rem, 2rem);
-    margin-right: 1rem;
     color: var(--label);
   }
 
@@ -45,7 +48,7 @@ margin: 1rem;
 
 export const Button = styled.button`
   padding: 1rem;
-  background: var(--valid-bg);
+  background: #7CB9E8;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;

@@ -19,18 +19,18 @@ export const TableComponent = () => {
   const [editingId, setEditingId] = useState(null);
   const [editedData, setEditedData] = useState({});
 
-  const getMaterias = () => {
-    const listaDeMaterias =
-      JSON.parse(localStorage.getItem("materias")) || [];
-    setTableData(listaDeMaterias);
+  const getProfessores = () => {
+    const listadeProfessores =
+      JSON.parse(localStorage.getItem("professores")) || [];
+    setTableData(listadeProfessores);
   };
 
   useEffect(() => {
-    getMaterias();
+    getProfessores();
   }, []);
 
-  const handleEdit = (materiaId) => {
-    setEditingId(materiaId);
+  const handleEdit = (professorid) => {
+    setEditingId(professorid);
   };
 
   const handleCancelEdit = () => {
@@ -38,48 +38,48 @@ export const TableComponent = () => {
     setEditedData({});
   };
 
-  const handleSaveEdit = (materiaId) => {
-    const materiaEditada = tableData.find(
-      (materia) => materia.id === materiaId
+  const handleSaveEdit = (professorid) => {
+    const professoresEditado = tableData.find(
+      (professor) => professor.id === professorid
     );
 
-    materiaEditada.nome =
-      editedData[materiaId]?.nome !== undefined
-        ? editedData[materiaId]?.nome
-        : materiaEditada.nome;
-    materiaEditada.cargaHoraria =
-      editedData[materiaId]?.cargaHoraria !== undefined
-        ? editedData[materiaId]?.cargaHoraria
-        : materiaEditada.cargaHoraria;
-    materiaEditada.peso =
-      editedData[materiaId]?.peso !== undefined
-        ? editedData[materiaId]?.peso
-        : materiaEditada.peso;
-    localStorage.setItem("materias", JSON.stringify(tableData));
+    professoresEditado.nome =
+      editedData[professorid]?.nome !== undefined
+        ? editedData[professorid]?.nome
+        : professoresEditado.nome;
+    professoresEditado.matricula =
+      editedData[professorid]?.matricula !== undefined
+        ? editedData[professorid]?.matricula
+        : professoresEditado.matricula;
+    professoresEditado.materia =
+      editedData[professorid]?.materia !== undefined
+        ? editedData[professorid]?.materia
+        : professoresEditado.materia;
+    localStorage.setItem("professores", JSON.stringify(tableData));
     setEditingId(null);
     setEditedData({});
   };
 
   const handleRemove = (event) => {
     const trElement = event.target.closest("tr");
-    const materiaId = trElement.getAttribute("data-id");
+    const professorid = trElement.getAttribute("data-id");
     trElement.remove();
-    const listaDeMaterias =
-      JSON.parse(localStorage.getItem("materias")) || [];
-    const updatedListaDeMaterias = listaDeMaterias.filter(
-      (materia) => materia.id !== materiaId
+    const listadeProfessores =
+      JSON.parse(localStorage.getItem("professores")) || [];
+    const updatedlistadeProfessores = listadeProfessores.filter(
+      (professor) => professor.id !== professorid
     );
     localStorage.setItem(
-      "materias",
-      JSON.stringify(updatedListaDeMaterias)
+      "professores",
+      JSON.stringify(updatedlistadeProfessores)
     );
   };
 
-  const handleFieldChange = (materiaId, field, value) => {
+  const handleFieldChange = (professorid, field, value) => {
     setEditedData((prevData) => ({
       ...prevData,
-      [materiaId]: {
-        ...prevData[materiaId],
+      [professorid]: {
+        ...prevData[professorid],
         [field]: value === "" ? null : value,
       },
     }));
@@ -93,8 +93,8 @@ export const TableComponent = () => {
             <Tr>
               <Th>ID</Th>
               <Th>Nome</Th>
-              <Th>CG</Th>
-              <Th>Peso</Th>
+              <Th>Mátricula</Th>
+              <Th>Máteria</Th>
               <Th>
                 <ToolsIcon />
               </Th>
@@ -103,76 +103,76 @@ export const TableComponent = () => {
         ) : null}
         <tbody>
           {tableData.length > 0 ? (
-            tableData.map((materia) => (
-              <Tr key={materia.id} data-id={materia.id}>
-                <Td>{materia.id}</Td>
+            tableData.map((professor) => (
+              <Tr key={professor.id} data-id={professor.id}>
+                <Td>{professor.id}</Td>
                 <Td>
-                  {editingId === materia.id ? (
+                  {editingId === professor.id ? (
                     <input
                       type="text"
                       value={
-                        editedData[materia.id]?.nome !== undefined
-                          ? editedData[materia.id]?.nome
-                          : materia.nome
+                        editedData[professor.id]?.nome !== undefined
+                          ? editedData[professor.id]?.nome
+                          : professor.nome
                       }
                       onChange={(event) =>
                         handleFieldChange(
-                          materia.id,
+                          professor.id,
                           "nome",
                           event.target.value
                         )
                       }
                     />
                   ) : (
-                    materia.nome || ""
+                    professor.nome || ""
                   )}
                 </Td>
                 <Td>
-                  {editingId === materia.id ? (
+                  {editingId === professor.id ? (
                     <input
                       type="text"
                       value={
-                        editedData[materia.id]?.cargaHoraria !== undefined
-                          ? editedData[materia.id]?.cargaHoraria
-                          : materia.cargaHoraria
+                        editedData[professor.id]?.matricula !== undefined
+                          ? editedData[professor.id]?.matricula
+                          : professor.matricula
                       }
                       onChange={(event) =>
                         handleFieldChange(
-                          materia.id,
-                          "cargaHoraria",
+                          professor.id,
+                          "matricula",
                           event.target.value
                         )
                       }
                     />
                   ) : (
-                    materia.cargaHoraria || ""
+                    professor.matricula || ""
                   )}
                 </Td>
                 <Td>
-                  {editingId === materia.id ? (
+                  {editingId === professor.id ? (
                     <input
                       type="text"
                       value={
-                        editedData[materia.id]?.peso !== undefined
-                          ? editedData[materia.id]?.peso
-                          : materia.peso
+                        editedData[professor.id]?.materia !== undefined
+                          ? editedData[professor.id]?.materia
+                          : professor.materia
                       }
                       onChange={(event) =>
                         handleFieldChange(
-                          materia.id,
-                          "peso",
+                          professor.id,
+                          "materia",
                           event.target.value
                         )
                       }
                     />
                   ) : (
-                    materia.peso || ""
+                    professor.materia || ""
                   )}
                 </Td>
                 <Td>
-                  {editingId === materia.id ? (
+                  {editingId === professor.id ? (
                     <>
-                      <SaveButton onClick={() => handleSaveEdit(materia.id)}>
+                      <SaveButton onClick={() => handleSaveEdit(professor.id)}>
                         Salvar
                       </SaveButton>
                       <CancelButton onClick={handleCancelEdit}>
@@ -181,7 +181,7 @@ export const TableComponent = () => {
                     </>
                   ) : (
                     <>
-                      <EditIcon onClick={() => handleEdit(materia.id)} />
+                      <EditIcon onClick={() => handleEdit(professor.id)} />
                       <RemoveIcon onClick={(event) => handleRemove(event)} />
                     </>
                   )}
@@ -190,7 +190,7 @@ export const TableComponent = () => {
             ))
           ) : (
             <NotFoundContainer>
-              <img src="github_gif.gif" alt="Gif do mascote do Github" />
+              
               <h2>Nenhum dado encontrado.</h2>
             </NotFoundContainer>
           )}
